@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { fetchRandomQuote} from "../services/quoteService";
+import { getQuote, fetchAvailableTags } from "../services/quoteService";
 import { Quote } from "../types/quote";
-
 
 const QuoteBox = () => {
   const [quote, setQuote] = useState<Quote | null>(null);
   const [loading, setLoading] = useState(false);
+  const [author, setAuthor] = useState("");
+  const [tag, setTag] = useState("");
+  const [tags, setTags] = useState<string[]>([]);
+  const uniqueTags = Array.from(new Set(tags));
 
-  const getNewQuote = async () => {
+
+  const fetchQuote = async () => {
     setLoading(true);
     try {
-      const randomQuote = await fetchRandomQuote();
-      setQuote(randomQuote);
+      const result = await getQuote({ author, tag });
+      if (result && !Array.isArray(result)) {
+        setQuote(result);
+      }
     } catch (err) {
       setQuote({
         content: "Something went wrong. Try again later.",
@@ -23,22 +29,53 @@ const QuoteBox = () => {
   };
 
   useEffect(() => {
-    getNewQuote();
+    fetchQuote();
+    fetchAvailableTags().then(setTags);
   }, []);
 
   return (
     <div className="bg-white p-8 rounded-xl shadow-md max-w-xl w-full space-y-6">
+      {/* 🔍 Author Input + Tag Dropdown */}
+      <div className="flex flex-col gap-4 md:flex-row">
+        <input
+          type="text"
+          placeholder="Search by author..."
+          value={author}
+          onChange={(e) => setAuthor(e.target.value)}
+          className="flex-grow border border-gray-300 rounded px-4 py-2"
+        />
+        <select
+          value={tag}
+          onChange={(e) => setTag(e.target.value)}
+          className="border border-gray-300 rounded px-4 py-2"
+        >
+          <option value="">Filter by tag</option>
+          {uniqueTags.map((t) => (
+            <option key={t} value={t}>
+              {t}
+            </option>
+          ))}
+
+
+        </select>
+      </div>
+
+      {/* 📜 Quote Display */}
       <div>
         <p className="text-xl font-medium text-gray-800">
           {loading ? "Loading..." : `"${quote?.content}"`}
         </p>
-        <p className="text-right text-sm text-gray-500 mt-2">
-          {quote?.author && `– ${quote.author}`}
-        </p>
+        {quote?.author && (
+          <p className="text-right text-sm text-gray-500 mt-2">
+            – {quote.author}
+          </p>
+        )}
       </div>
+
+      {/* 🔁 New Quote Button */}
       <div className="text-center">
         <button
-          onClick={getNewQuote}
+          onClick={fetchQuote}
           className="bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-700 transition"
           disabled={loading}
         >

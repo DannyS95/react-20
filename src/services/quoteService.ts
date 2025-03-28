@@ -1,12 +1,45 @@
 import { Quote } from "../types/quote";
 
-const BASE_URL = "https://api.quotable.io";
+const BASE_URL = "https://api.quotable.io/quotes/random";
 
-export const fetchRandomQuote = async (): Promise<Quote> => {
-  const res = await fetch(`${BASE_URL}/random`);
+export const fetchAvailableTags = async (): Promise<string[]> => {
+  const res = await fetch("https://api.quotable.io/tags");
   const data = await res.json();
-  return {
-    content: data.content,
-    author: data.author,
-  };
+  return data.map((tag: any) => tag.slug);
+};
+
+export const getQuote = async (
+  options?: { author?: string; tag?: string }
+): Promise<Quote> => {
+  const { author, tag } = options || {};
+  const params = new URLSearchParams();
+
+  if (author?.trim()) params.append("author", author.trim());
+  if (tag?.trim()) params.append("tags", tag.trim());
+
+  const url = params.toString()
+    ? `${BASE_URL}?${params.toString()}`
+    : BASE_URL;
+
+  try {
+    const res = await fetch(url);
+    const data: Quote[] = await res.json();
+
+    if (Array.isArray(data) && data.length > 0) {
+      return {
+        content: data[0].content,
+        author: data[0].author,
+      };
+    }
+
+    return {
+      content: "No quote found.",
+      author: "",
+    };
+  } catch {
+    return {
+      content: "Something went wrong. Please try again later.",
+      author: "",
+    };
+  }
 };
