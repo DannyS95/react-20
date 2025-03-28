@@ -1,21 +1,17 @@
-// src/components/QuoteBox.tsx
 import React, { useEffect, useState } from "react";
+import { fetchRandomQuote} from "../services/quoteService";
+import { Quote } from "../types/quote";
 
-type Quote = {
-  content: string;
-  author: string;
-};
 
 const QuoteBox = () => {
   const [quote, setQuote] = useState<Quote | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const fetchQuote = async () => {
+  const getNewQuote = async () => {
     setLoading(true);
     try {
-      const res = await fetch("https://api.quotable.io/random");
-      const data = await res.json();
-      setQuote({ content: data.content, author: data.author });
+      const randomQuote = await fetchRandomQuote();
+      setQuote(randomQuote);
     } catch (err) {
       setQuote({
         content: "Something went wrong. Try again later.",
@@ -27,7 +23,7 @@ const QuoteBox = () => {
   };
 
   useEffect(() => {
-    fetchQuote();
+    getNewQuote();
   }, []);
 
   return (
@@ -42,7 +38,7 @@ const QuoteBox = () => {
       </div>
       <div className="text-center">
         <button
-          onClick={fetchQuote}
+          onClick={getNewQuote}
           className="bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-700 transition"
           disabled={loading}
         >
