@@ -43,3 +43,24 @@ export const getQuote = async (
     };
   }
 };
+
+export const fetchTagsForAuthor = async (
+  author: string
+): Promise<string[]> => {
+  const params = new URLSearchParams();
+  params.append("author", author.trim());
+  params.append("limit", "100"); // enough to gather most tag samples
+
+  const res = await fetch(`https://api.quotable.io/quotes?${params}`);
+  const data = await res.json();
+
+  const tagSet = new Set<string>();
+  for (const quote of data.results || []) {
+    for (const tag of quote.tags || []) {
+      tagSet.add(tag);
+    }
+  }
+
+  return Array.from(tagSet);
+};
+

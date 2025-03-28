@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getQuote, fetchAvailableTags } from "../services/quoteService";
+import { getQuote, fetchAvailableTags, fetchTagsForAuthor } from "../services/quoteService";
 import { Quote } from "../types/quote";
 
 const QuoteBox = () => {
@@ -15,23 +15,42 @@ const QuoteBox = () => {
     setLoading(true);
     try {
       const result = await getQuote({ author, tag });
-      if (result && !Array.isArray(result)) {
-        setQuote(result);
-      }
-    } catch (err) {
+      setQuote(result);
+    } catch {
       setQuote({
-        content: "Something went wrong. Try again later.",
+        content: "Something went wrong.",
         author: "",
       });
     } finally {
       setLoading(false);
     }
   };
+  
 
   useEffect(() => {
-    fetchQuote();
+    if (author.trim() === "") {
+      fetchAvailableTags().then(setTags);
+      setTag("");
+      return;
+    }
+  
+    const timeout = setTimeout(() => {
+      fetchTagsForAuthor(author).then((filteredTags) => {
+        setTags(filteredTags);
+        setTag("");
+      });
+    }, 300);
+  
+    return () => clearTimeout(timeout);
+  }, [author]);
+
+  useEffect(() => {
+    fetchQuote();             
     fetchAvailableTags().then(setTags);
   }, []);
+  
+  
+  
 
   return (
     <div className="bg-white p-8 rounded-xl shadow-md max-w-xl w-full space-y-6">
@@ -48,16 +67,16 @@ const QuoteBox = () => {
           value={tag}
           onChange={(e) => setTag(e.target.value)}
           className="border border-gray-300 rounded px-4 py-2"
+          disabled={tags.length === 0}
         >
           <option value="">Filter by tag</option>
-          {uniqueTags.map((t) => (
+          {Array.from(new Set(tags)).map((t) => (
             <option key={t} value={t}>
               {t}
             </option>
           ))}
-
-
         </select>
+
       </div>
 
       {/* 📜 Quote Display */}
