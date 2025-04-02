@@ -8,7 +8,6 @@ const QuoteBox = () => {
   const [author, setAuthor] = useState("");
   const [tag, setTag] = useState("");
   const [tags, setTags] = useState<string[]>([]);
-  const uniqueTags = Array.from(new Set(tags));
 
 
   const fetchQuote = async () => {
@@ -54,7 +53,6 @@ const QuoteBox = () => {
 
   return (
     <div className="bg-white p-8 rounded-xl shadow-md max-w-xl w-full space-y-6">
-      {/* 🔍 Author Input + Tag Dropdown */}
       <div className="flex flex-col gap-4 md:flex-row">
         <input
           type="text"
@@ -79,7 +77,6 @@ const QuoteBox = () => {
 
       </div>
 
-      {/* 📜 Quote Display */}
       <div>
         <p className="text-xl font-medium text-gray-800">
           {loading ? "Loading..." : `"${quote?.content}"`}
@@ -91,7 +88,6 @@ const QuoteBox = () => {
         )}
       </div>
 
-      {/* 🔁 New Quote Button */}
       <div className="text-center">
         <button
           onClick={fetchQuote}
