@@ -4,22 +4,41 @@ import { calculatorButtonSpecs } from "../utils/CalculatorButtons";
 import { evaluateExpression } from "../utils/CalculatorUtils";
 
 const Calculator = () => {
-  const handleButtonClick = (value: string) => {
-    if (value === "C") {
-      setInput("0");
-    } else if (value === "←") {
-      setInput((prev) => (prev.length > 1 ? prev.slice(0, -1) : "0"));
-    } else if (value === "=") {
-      setInput(evaluateExpression(input));
-    } else {
-      setInput((prev) => {
-        if (prev === "0" && !["+", "-", "*", "/", "%", "."].includes(value)) {
-          return value;
-        }
-        return prev + value;
-      });
-    }
-  };
+  const isOperator = (char: string) => ["+", "-", "*", "/", "%"].includes(char);
+
+const handleButtonClick = (value: string) => {
+  if (value === "C") {
+    setInput("0");
+  } else if (value === "←") {
+    setInput((prev) => (prev.length > 1 ? prev.slice(0, -1) : "0"));
+  } else if (value === "=") {
+    setInput(evaluateExpression(input));
+  } else {
+    setInput((prev) => {
+      const lastChar = prev.slice(-1);
+
+      if (isOperator(lastChar) && isOperator(value)) {
+        return prev;
+      }
+
+      if (prev === "0" && isOperator(value) && value !== "-") {
+        return prev;
+      }
+
+      if (value === ".") {
+        const lastSegment = prev.split(/[\+\-\*\/%]/).pop() || "";
+        if (lastSegment.includes(".")) return prev;
+      }
+
+      if (prev === "0" && !isOperator(value) && value !== ".") {
+        return value;
+      }
+
+      return prev + value;
+    });
+  }
+};
+
 
   const [input, setInput] = useState("0");
 
@@ -31,6 +50,24 @@ const Calculator = () => {
     }
   }, [input]);
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const key = e.key;
+  
+      if (/^[0-9]$/.test(key) || ["+", "-", "*", "/", "%", "."].includes(key)) {
+        handleButtonClick(key);
+      } else if (key === "Enter") {
+        handleButtonClick("=");
+      } else if (key === "Backspace") {
+        handleButtonClick("←");
+      } else if (key === "Escape") {
+        handleButtonClick("C");
+      }
+    };
+  
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);  
 
   return (
     <div className="h-screen flex items-center justify-center bg-slate-100 px-4">
