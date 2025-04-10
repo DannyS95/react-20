@@ -8,7 +8,10 @@ type DiceProps = {
 
 const Dice = ({ dice }: DiceProps) => {
   return (
-    <div className="w-20 h-20 flex items-center justify-center border-2 border-gray-500 rounded-lg text-4xl bg-white shadow-md">
+    <div
+      className={`w-20 h-20 flex items-center justify-center border-2 border-gray-500 rounded-lg text-4xl bg-white shadow-md 
+        ${dice.isRolling ? "animate-roll" : ""}`}
+    >
       {dice.face}
     </div>
   );

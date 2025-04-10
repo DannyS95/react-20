@@ -2,11 +2,13 @@
 export const diceFaces = ["⚀", "⚁", "⚂", "⚃", "⚄", "⚅"] as const;
 
 export interface DiceModel {
-  value: number;     // 1–6
-  face: string;      // matching face emoji
+  value: number;
+  face: string;
+  isRolling: boolean;
 }
 
-export const createDice = (value: number): DiceModel => ({
+export const createDice = (value: number, isRolling = false): DiceModel => ({
   value,
   face: diceFaces[value - 1],
+  isRolling
 });

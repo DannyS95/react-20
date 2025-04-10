@@ -6,13 +6,30 @@ import { createDice, DiceModel } from "../models/DiceModel";
 const RollDice = () => {
   const [dice1, setDice1] = useState<DiceModel>(createDice(1));
   const [dice2, setDice2] = useState<DiceModel>(createDice(1));
+  const getRandomDiceValue = () => Math.ceil(Math.random() * 6);
 
   const rollDice = () => {
-    const new1 = Math.ceil(Math.random() * 6);
-    const new2 = Math.ceil(Math.random() * 6);
-    setDice1(createDice(new1));
-    setDice2(createDice(new2));
+    let counter = 0;
+    const rollLimit = 10;
+    const interval = 200;
+  
+    const roll = setInterval(() => {
+      setDice1(createDice(getRandomDiceValue(), true));
+      setDice2(createDice(getRandomDiceValue(), true));
+      counter++;
+  
+      if (counter >= rollLimit) {
+        clearInterval(roll);
+  
+        const final1 = getRandomDiceValue();
+        const final2 = getRandomDiceValue();
+        setDice1(createDice(final1));
+        setDice2(createDice(final2));
+      }
+    }, interval);
   };
+  
+  
 
 
   return (
