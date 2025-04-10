@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { getQuote, fetchAvailableTags, fetchTagsForAuthor } from "../services/quoteService";
-import { Quote } from "../types/quote";
+import { QuoteModel } from "../models/QuoteModel";
 
 const QuoteBox = () => {
-  const [quote, setQuote] = useState<Quote | null>(null);
+  const [quote, setQuote] = useState<QuoteModel | null>(null);
   const [loading, setLoading] = useState(false);
   const [author, setAuthor] = useState("");
   const [tag, setTag] = useState("");

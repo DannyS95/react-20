@@ -1,4 +1,4 @@
-import { Quote } from "../types/quote";
+import { Quote } from "../models/QuoteModel";
 
 const BASE_URL = "https://api.quotable.io/quotes/random";
 

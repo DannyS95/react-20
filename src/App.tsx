@@ -1,8 +1,9 @@
 // src/App.tsx
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import QuoteGenerator from './pages/QuoteGenerator';
 import Calculator from './pages/Calculator';
+import RollDice from './pages/RollDice'; // 🧩 make sure this import exists
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/quote-generator" element={<QuoteGenerator />} />
         <Route path="/calculator" element={<Calculator />} />
-
+        <Route path="/roll-dice" element={<RollDice />} /> {/* ✅ Correct Route */}
       </Routes>
     </div>
   );

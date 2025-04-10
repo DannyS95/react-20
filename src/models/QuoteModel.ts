@@ -1,4 +1,4 @@
-export type Quote = {
+export type QuoteModel = {
     content: string;
     author: string;
   };
