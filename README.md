@@ -1,54 +1,59 @@
-# React + TypeScript + Vite
+# React 20 Challenges – Progress Log
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a breakdown of the completed projects and core functionalities in the React 20 challenge series. Each app is built using **React**, **TypeScript**, and **Tailwind CSS**, with routing handled by **React Router**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✅ Quote Generator
 
-## Expanding the ESLint configuration
+### Summary:
+A responsive quote viewer that allows users to explore quotes from different authors and tags, powered by the Quotable API.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Features:
+- Fetches random quotes from an external API.
+- Allows filtering by **author** and **tag**.
+- Dynamically updates tag list based on the current author input.
+- Graceful error handling with fallback messaging.
+- Clean, accessible UI with full Tailwind styling.
+- Loads a new random quote on button click or page load.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## ✅ Calculator
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Summary:
+A modern, interactive calculator with keyboard support, proper input validation, and live expression evaluation.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+### Features:
+- 4x5 calculator grid using a declarative button spec.
+- Supports basic math operations, decimal input, and clearing.
+- Prevents invalid input sequences like duplicate operators or misplaced decimals.
+- Keyboard-enabled: works with number keys, operators, Enter, and Backspace.
+- Scrollable display handles long expressions neatly.
+- Live expression evaluation using a utility function.
+
+---
+
+## ✅ Roll a Dice (The Dash)
+
+### Summary:
+A fun and dynamic dice rolling simulator that mimics the behavior of physical dice using animations and emoji faces.
+
+### Features:
+- Two dice rendered with accurate emoji faces (`⚀` to `⚅`).
+- Dice state is handled through a structured model for value + face.
+- Rolling simulates real dice behavior with rapid face changes before settling.
+- Smooth 30° shake animation during roll for added realism.
+- Displays the combined total of the two dice.
+- Fully routed and accessible via the Home screen.
+
+---
+
+## 🔗 Navigation
+
+The Home page includes direct navigation buttons to:
+- 💭 Quote Generator
+- 🔢 Calculator
+- 🎲 Roll Dice
+
+Each app is fully responsive and functions independently within its own route.
