@@ -11,9 +11,13 @@ export default {
           '25%': { transform: 'rotate(30deg)' },
           '75%': { transform: 'rotate(-30deg)' },
         },
+        drop: {
+          "0%": { transform: "translateY(-650%)", opacity: "1" },
+          "100%": { transform: "translateY(0)", opacity: "1" },
+        },
       },
       animation: {
-        roll: 'roll 1s ease-in-out',
+        drop: "drop 0.4s ease-out",
       },
     },
   },
