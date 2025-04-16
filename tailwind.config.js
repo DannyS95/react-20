@@ -3,6 +3,14 @@ export default {
   content: [
     "./**/*.{js,ts,jsx,tsx}",
   ],
+  safelist: [
+    'animate-drop-row-0',
+    'animate-drop-row-1',
+    'animate-drop-row-2',
+    'animate-drop-row-3',
+    'animate-drop-row-4',
+    'animate-drop-row-5',
+  ],
   theme: {
     extend: {
       keyframes: {
@@ -11,13 +19,24 @@ export default {
           '25%': { transform: 'rotate(30deg)' },
           '75%': { transform: 'rotate(-30deg)' },
         },
-        drop: {
-          "0%": { transform: "translateY(-650%)", opacity: "1" },
-          "100%": { transform: "translateY(0)", opacity: "1" },
-        },
+        ...Object.fromEntries(
+          Array.from({ length: 6 }, (_, i) => [
+            `drop-row-${i}`,
+            {
+              '0%': { transform: `translateY(-${(i + 1) * 50}px)` },
+              '100%': { transform: 'translateY(0)' },
+            },
+          ])
+        ),
       },
       animation: {
-        drop: "drop 0.4s ease-out",
+        roll: 'roll 0.4s ease-in-out',
+        ...Object.fromEntries(
+          Array.from({ length: 6 }, (_, i) => [
+            `drop-row-${i}`,
+            `drop-row-${i} 0.6s ease-out`,
+          ])
+        ),
       },
     },
   },

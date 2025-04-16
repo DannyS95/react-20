@@ -17,16 +17,19 @@ const ConnectFourBoard: React.FC<ConnectFourBoardProps> = ({ board, onDrop, last
           <div key={rowIndex} className="grid grid-cols-7 gap-1">
             {row.map((cell, colIndex) => {
               const isLatest = lastMove?.row === rowIndex && lastMove?.col === colIndex;
+              const dropClass = isLatest && animating ? `animate-drop-row-${rowIndex}` : "";
               return (
                 <div
                   key={colIndex}
                   onClick={() => onDrop(colIndex)}
-                  className="w-12 h-12 rounded-full border-2 border-blue-950 bg-blue-100 flex items-center justify-center cursor-pointer hover:brightness-110 transition"
+                  className="w-12 h-12
+                    rounded-full
+                    border-2
+                    border-blue-950 bg-blue-100 flex items-center justify-center cursor-pointer hover:brightness-110 transition"
                 >
                     {cell ? (
                           <div
-                          className={`w-10 h-10 rounded-full
-                            ${isLatest && animating ? "animate-drop" : ""}
+                          className={`w-10 h-10 rounded-full ${dropClass}
                             ${cell === "R"
                               ? "bg-[radial-gradient(circle_at_30%_30%,#f87171_30%,#b91c1c_90%)] shadow-inner shadow-red-900/60"
                               : "bg-[radial-gradient(circle_at_30%_30%,#fde047_30%,#b45309_90%)] shadow-inner shadow-yellow-900/50"
