@@ -14,7 +14,6 @@ A responsive quote viewer that allows users to explore quotes from different aut
 - Allows filtering by **author** and **tag**.
 - Dynamically updates tag list based on the current author input.
 - Graceful error handling with fallback messaging.
-- Clean, accessible UI with full Tailwind styling.
 - Loads a new random quote on button click or page load.
 
 ---
@@ -30,7 +29,6 @@ A modern, interactive calculator with keyboard support, proper input validation,
 - Prevents invalid input sequences like duplicate operators or misplaced decimals.
 - Keyboard-enabled: works with number keys, operators, Enter, and Backspace.
 - Scrollable display handles long expressions neatly.
-- Live expression evaluation using a utility function.
 
 ---
 
@@ -41,11 +39,9 @@ A fun and dynamic dice rolling simulator that mimics the behavior of physical di
 
 ### Features:
 - Two dice rendered with accurate emoji faces (`⚀` to `⚅`).
-- Dice state is handled through a structured model for value + face.
 - Rolling simulates real dice behavior with rapid face changes before settling.
 - Smooth 30° shake animation during roll for added realism.
 - Displays the combined total of the two dice.
-- Fully routed and accessible via the Home screen.
 
 ---
 
