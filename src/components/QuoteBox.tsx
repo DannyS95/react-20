@@ -12,26 +12,15 @@ const QuoteBox = () => {
 
   const fetchQuote = async () => {
     setLoading(true);
+  
     try {
       const result = await getQuote({ author, tag });
       setQuote(result);
-    } catch (err: any) {
-      if (err instanceof TypeError && err.message.includes("fetch")) {
-        setQuote({
-          content: `⚠️ Couldn’t reach the Quotable API — likely a CORS/​origin block.
-            Open the browser console for the exact error and confirm that requests to https://api.quotable.io are allowed (or proxy the call locally).`,
-          author: "",
-        });
-      } else {
-        setQuote({
-          content: "Something went wrong. Please try again.",
-          author: "",
-        });
-      }
     } finally {
       setLoading(false);
     }
   };
+  
   
 
   useEffect(() => {

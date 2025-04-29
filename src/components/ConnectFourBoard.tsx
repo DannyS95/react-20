@@ -7,6 +7,7 @@ interface ConnectFourBoardProps {
   onDrop: (col: number) => void;
   lastMove: { row: number; col: number } | null;
   animating: boolean;
+  winningCells: { row: number; col: number }[] | 
 }
 
 const ConnectFourBoard: React.FC<ConnectFourBoardProps> = ({ board, onDrop, lastMove, animating }) => {

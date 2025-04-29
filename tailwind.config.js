@@ -34,7 +34,7 @@ export default {
         ...Object.fromEntries(
           Array.from({ length: 6 }, (_, i) => [
             `drop-row-${i}`,
-            `drop-row-${i} 0.6s ease-out`,
+            `drop-row-${i} ${(0.1 + i * 0.05).toFixed(2)}s ease-out`
           ])
         ),
       },

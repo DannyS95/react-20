@@ -38,7 +38,7 @@ export const getQuote = async (
     };
   } catch {
     return {
-      content: "Something went wrong. Please try again later.",
+      content: `⚠️ Unable to reach the quote server. This may be caused by a network issue, a CORS restriction, or a browser security block (such as an invalid certificate).`,
       author: "",
     };
   }
