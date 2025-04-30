@@ -7,10 +7,10 @@ interface ConnectFourBoardProps {
   onDrop: (col: number) => void;
   lastMove: { row: number; col: number } | null;
   animating: boolean;
-  winningCells: { row: number; col: number }[] | 
+  winningCells: { row: number; col: number }[] | null;
 }
 
-const ConnectFourBoard: React.FC<ConnectFourBoardProps> = ({ board, onDrop, lastMove, animating }) => {
+const ConnectFourBoard: React.FC<ConnectFourBoardProps> = ({ board, onDrop, lastMove, animating, winningCells }) => {
   return (
     <div className="bg-blue-800 p-4 rounded-xl shadow-lg ring-4 ring-blue-900">
       <div className="grid grid-rows-6 gap-1">
@@ -18,7 +18,11 @@ const ConnectFourBoard: React.FC<ConnectFourBoardProps> = ({ board, onDrop, last
           <div key={rowIndex} className="grid grid-cols-7 gap-1">
             {row.map((cell, colIndex) => {
               const isLatest = lastMove?.row === rowIndex && lastMove?.col === colIndex;
-              const dropClass = isLatest && animating ? `animate-drop-row-${rowIndex}` : "";
+              const dropAnimation = isLatest && animating ? `animate-drop-row-${rowIndex}` : "";
+              const isWinningCell = winningCells?.some(
+                (cell) => cell.row === rowIndex && cell.col === colIndex
+              );
+              
               return (
                 <div
                   key={colIndex}
@@ -30,11 +34,12 @@ const ConnectFourBoard: React.FC<ConnectFourBoardProps> = ({ board, onDrop, last
                 >
                     {cell ? (
                           <div
-                          className={`w-10 h-10 rounded-full ${dropClass}
+                          className={`w-10 h-10 rounded-full ${dropAnimation}
                             ${cell === "R"
-                              ? "bg-[radial-gradient(circle_at_30%_30%,#f87171_30%,#b91c1c_90%)] shadow-inner shadow-red-900/60"
-                              : "bg-[radial-gradient(circle_at_30%_30%,#fde047_30%,#b45309_90%)] shadow-inner shadow-yellow-900/50"
+                              ? "bg-[radial-gradient(circle_at_50%_50%,#f87171_40%,#7f1d1d_95%)] shadow-inner shadow-red-900/65"
+                              : "bg-[radial-gradient(circle_at_50%_50%,#fde047_40%,#78350f_95%)] shadow-inner shadow-yellow-900/60"
                             }
+                            ${isWinningCell ? "ring-4 ring-green-400 animate-pulse" : ""}
                           `}
                         />                        
                         ) : (

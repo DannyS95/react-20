@@ -1,55 +1,71 @@
-# React 20 Challenges – Progress Log
+# ✅ React 20 Challenge – Completed Projects
 
-This is a breakdown of the completed projects and core functionalities in the React 20 challenge series. Each app is built using **React**, **TypeScript**, and **Tailwind CSS**, with routing handled by **React Router**.
-
----
-
-## ✅ Quote Generator
-
-### Summary:
-A responsive quote viewer that allows users to explore quotes from different authors and tags, powered by the Quotable API.
-
-### Features:
-- Fetches random quotes from an external API.
-- Allows filtering by **author** and **tag**.
-- Dynamically updates tag list based on the current author input.
-- Graceful error handling with fallback messaging.
-- Loads a new random quote on button click or page load.
+This section documents the apps completed so far in the **React 20 Challenge**. Each project is built using **React**, **TypeScript**, and **Tailwind CSS**, and showcases declarative design, modular structure, and state-driven UIs.
 
 ---
 
-## ✅ Calculator
+## ✅ Quote Generator 💭
 
-### Summary:
-A modern, interactive calculator with keyboard support, proper input validation, and live expression evaluation.
+### Summary  
+A responsive quote viewer powered by the Quotable API. Users can explore quotes dynamically by author and tag, with smooth filtering and error feedback.
 
-### Features:
-- 4x5 calculator grid using a declarative button spec.
-- Supports basic math operations, decimal input, and clearing.
-- Prevents invalid input sequences like duplicate operators or misplaced decimals.
-- Keyboard-enabled: works with number keys, operators, Enter, and Backspace.
-- Scrollable display handles long expressions neatly.
+### Features
+- 🧠 Fetches random quotes from an external API with live updates
+- 🏷️ Tag filtering and author search with auto-refined tag lists
+- ⚠️ Graceful error handling with CORS/network awareness
+- 🔁 Supports manual quote refresh and initial auto-fetch
 
 ---
 
-## ✅ Roll a Dice (The Dash)
+## ✅ Calculator 🔢
 
-### Summary:
-A fun and dynamic dice rolling simulator that mimics the behavior of physical dice using animations and emoji faces.
+### Summary  
+A modern calculator with keyboard support, input validation, and real-time expression evaluation.
 
-### Features:
-- Two dice rendered with accurate emoji faces (`⚀` to `⚅`).
-- Rolling simulates real dice behavior with rapid face changes before settling.
-- Smooth 30° shake animation during roll for added realism.
-- Displays the combined total of the two dice.
+### Features
+- 🔲 4x5 responsive button grid built from a declarative layout config
+- 🧮 Validates input to prevent double operators, malformed decimals, etc.
+- ⌨️ Full keyboard support (Enter, Backspace, arrow keys, etc.)
+- 🔢 Handles large expressions with a scrollable display
+
+---
+
+## ✅ Roll a Dice 🎲 (The Dash)
+
+### Summary  
+A fun dice roller simulator that mimics physical dice behavior with animated shake and emoji faces.
+
+### Features
+- 🎲 Two dice with realistic emoji faces (`⚀` to `⚅`)
+- 🌀 30° shake animation with rapid face switching during roll
+- 🔢 Displays the total roll result after each throw
+- 🕹️ Simple, responsive layout — works well on any screen size
+
+---
+
+## ✅ Connect Four 🔴🟡
+
+### Summary  
+A full-featured Connect Four game with animated drops, real-time win detection, and immersive 3D-style visuals.
+
+### Features
+- 🟡🔴 Interactive 6x7 grid with accurate column-based drop logic
+- ⚙️ Falling animation with timed win detection after drop completes
+- 🔎 Four-direction win detection (horizontal, vertical, diagonal)
+- 💡 3D-effect discs using radial gradients and colored shadows
+- 🏆 Winning discs highlighted visually + winner message
+- 🔐 Input locked during animation to prevent rapid double-moves
+- 🔄 Full board reset and turn reinitialization on game end
+- ✅ Proper state separation: game logic in parent, rendering in child
 
 ---
 
 ## 🔗 Navigation
 
-The Home page includes direct navigation buttons to:
+The Home page provides quick access to:
 - 💭 Quote Generator
 - 🔢 Calculator
 - 🎲 Roll Dice
+- 🔴🟡 Connect Four
 
-Each app is fully responsive and functions independently within its own route.
+All projects are routed independently and are fully responsive.

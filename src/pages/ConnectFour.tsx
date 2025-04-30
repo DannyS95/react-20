@@ -39,12 +39,22 @@ const ConnectFour = () => {
         setAnimating(true);
         setIsLocked(true);
 
-        const result = checkWinner(board, row, col, currentPlayer);
+        setTimeout(() => {
+          const result = checkWinner(newBoard, row, col, currentPlayer);
 
-        if (result) {
-          setWinner(result.winner);
-          setWinningCells(result.winningCells);
-        }
+          if (result) {
+            setWinner(result.winner);
+            setWinningCells(result.winningCells);
+          }
+        
+          setAnimating(false);
+          setIsLocked(false);
+        
+          if (!result) {
+            setCurrentPlayer(currentPlayer === "R" ? "Y" : "R");
+          }
+        }, 300);
+        
 
         setTimeout(() => {
           setAnimating(false);
@@ -60,12 +70,19 @@ const ConnectFour = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen space-y-6 bg-yellow-50">
+      {!winner && (
+        <div className="text-xl font-semibold text-gray-800 mb-2">
+          {currentPlayer === "R" ? "🔴 Red's Turn" : "🟡 Yellow's Turn"}
+        </div>
+      )}
+
       {winner && (
         <div className="text-3xl font-bold text-green-600 mb-4">
           {winner === "R" ? "🔴 Red Wins!" : "🟡 Yellow Wins!"}
         </div>
       )}
-  
+
+
       <ConnectFourBoard
         board={board}
         onDrop={handleDrop}
@@ -73,7 +90,7 @@ const ConnectFour = () => {
         animating={animating}
         winningCells={winningCells}
       />
-  
+
       {winner && (
         <button
           onClick={resetGame}
