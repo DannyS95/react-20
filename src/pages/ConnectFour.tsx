@@ -70,18 +70,15 @@ const ConnectFour = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen space-y-6 bg-yellow-50">
-      {!winner && (
+      {!winner ? (
         <div className="text-xl font-semibold text-gray-800 mb-2">
           {currentPlayer === "R" ? "🔴 Red's Turn" : "🟡 Yellow's Turn"}
         </div>
-      )}
-
-      {winner && (
+      ) : (
         <div className="text-3xl font-bold text-green-600 mb-4">
           {winner === "R" ? "🔴 Red Wins!" : "🟡 Yellow Wins!"}
         </div>
-      )}
-
+      ) }
 
       <ConnectFourBoard
         board={board}

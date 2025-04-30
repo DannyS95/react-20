@@ -30,7 +30,7 @@ export default {
         ),
       },
       animation: {
-        roll: 'roll 0.4s ease-in-out',
+        roll: 'roll 0.4s ease-in-out infinite',
         ...Object.fromEntries(
           Array.from({ length: 6 }, (_, i) => [
             `drop-row-${i}`,
