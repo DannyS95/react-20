@@ -13,6 +13,17 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        'xs': '420px',
+        'sm': '640px',
+        'md': '768px',
+        'lg': '1024px',
+        'xl': '1280px',
+        '2xl': '1536px',
+      },
+      height: {
+        'screen-minus': 'calc(100vh - 80px)', // Custom height for scrolling
+      },
       keyframes: {
         roll: {
           '0%, 100%': { transform: 'rotate(0deg)' },

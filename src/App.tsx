@@ -4,6 +4,7 @@ import QuoteGenerator from './pages/QuoteGenerator';
 import Calculator from './pages/Calculator';
 import RollDice from './pages/RollDice';
 import ConnectFour from "./pages/ConnectFour";
+import ExpenseTracker from "./pages/ExpenseTracker";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/calculator" element={<Calculator />} />
         <Route path="/roll-dice" element={<RollDice />} />
         <Route path="/connect-four" element={<ConnectFour />} />
+        <Route path="/expense-tracker" element={<ExpenseTracker />} />
       </Routes>
     </div>
   );

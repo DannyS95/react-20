@@ -34,6 +34,12 @@ const Home = () => {
           >
             🔴 Connect Four
           </Link>
+          <Link
+            to="/expense-tracker"
+            className="block px-6 py-2 text-white rounded transition bg-gradient-to-r from-orange-500 via-blue-500 to-green-500 hover:from-orange-600 hover:via-blue-600 hover:to-green-600"
+          >
+            💰 Expense Tracker
+          </Link>
         </div>
       </div>
     </div>
