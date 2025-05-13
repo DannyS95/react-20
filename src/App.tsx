@@ -5,6 +5,8 @@ import Calculator from './pages/Calculator';
 import RollDice from './pages/RollDice';
 import ConnectFour from "./pages/ConnectFour";
 import ExpenseTracker from "./pages/ExpenseTracker";
+import GradientGenerator from './pages/GradientGenerator';
+
 
 function App() {
   return (
@@ -16,6 +18,7 @@ function App() {
         <Route path="/roll-dice" element={<RollDice />} />
         <Route path="/connect-four" element={<ConnectFour />} />
         <Route path="/expense-tracker" element={<ExpenseTracker />} />
+        <Route path="/gradient-generator" element={<GradientGenerator />} />
       </Routes>
     </div>
   );

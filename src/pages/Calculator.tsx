@@ -6,38 +6,38 @@ import { evaluateExpression } from "../utils/CalculatorUtils";
 const Calculator = () => {
   const isOperator = (char: string) => ["+", "-", "*", "/", "%"].includes(char);
 
-const handleButtonClick = (value: string) => {
-  if (value === "C") {
-    setInput("0");
-  } else if (value === "←") {
-    setInput((prev) => (prev.length > 1 ? prev.slice(0, -1) : "0"));
-  } else if (value === "=") {
-    setInput(evaluateExpression(input));
-  } else {
-    setInput((prev) => {
-      const lastChar = prev.slice(-1);
+  const handleButtonClick = (value: string) => {
+    if (value === "C") {
+      setInput("0");
+    } else if (value === "←") {
+      setInput((prev) => (prev.length > 1 ? prev.slice(0, -1) : "0"));
+    } else if (value === "=") {
+      setInput(evaluateExpression(input));
+    } else {
+      setInput((prev) => {
+        const lastChar = prev.slice(-1);
 
-      if (isOperator(lastChar) && isOperator(value)) {
-        return prev;
-      }
+        if (isOperator(lastChar) && isOperator(value)) {
+          return prev;
+        }
 
-      if (prev === "0" && isOperator(value) && value !== "-") {
-        return prev;
-      }
+        if (prev === "0" && isOperator(value) && value !== "-") {
+          return prev;
+        }
 
-      if (value === ".") {
-        const lastSegment = prev.split(/[\+\-\*\/%]/).pop() || "";
-        if (lastSegment.includes(".")) return prev;
-      }
+        if (value === ".") {
+          const lastSegment = prev.split(/[\+\-\*\/%]/).pop() || "";
+          if (lastSegment.includes(".")) return prev;
+        }
 
-      if (prev === "0" && !isOperator(value) && value !== ".") {
-        return value;
-      }
+        if (prev === "0" && !isOperator(value) && value !== ".") {
+          return value;
+        }
 
-      return prev + value;
-    });
-  }
-};
+        return prev + value;
+      });
+    }
+  };
 
 
   const [input, setInput] = useState("0");

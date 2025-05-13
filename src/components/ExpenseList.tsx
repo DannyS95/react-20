@@ -1,4 +1,4 @@
-// src/components/ExpenseList.tsx
+
 import React from 'react';
 
 type Expense = {
@@ -6,6 +6,7 @@ type Expense = {
   description: string;
   amount: number;
   date: Date;
+  category: string; // Added category here
 };
 
 const ExpenseList = ({ expenses, budget }: { expenses: Expense[]; budget: number | null }) => {
@@ -24,13 +25,10 @@ const ExpenseList = ({ expenses, budget }: { expenses: Expense[]; budget: number
         Expenses
       </h2>
 
-      {/* Always display the balance */}
       {budget !== null && (
         <div className="mb-6 text-center">
           <p className="text-lg font-semibold text-gray-500">Balance:</p>
-          <span
-            className={`text-xl ${totalExpenses > budget ? 'text-red-600' : 'text-purple-600'}`}
-          >
+          <span className={`text-xl ${totalExpenses > budget ? 'text-red-600' : 'text-purple-600'}`}>
             {totalExpenses > budget
               ? `- ${formatCurrency(totalExpenses - budget)}`
               : `${formatCurrency(budget - totalExpenses)}`}
@@ -38,9 +36,7 @@ const ExpenseList = ({ expenses, budget }: { expenses: Expense[]; budget: number
           <div className="w-full bg-gray-200 rounded-full h-2 mb-2">
             <div
               className={`h-2 rounded-full ${totalExpenses > budget ? 'bg-red-600' : 'bg-green-500'}`}
-              style={{
-                width: `${Math.min((totalExpenses / budget) * 100, 100) || 1}%`,
-              }}
+              style={{ width: `${Math.min((totalExpenses / budget) * 100, 100) || 1}%` }}
             ></div>
           </div>
         </div>
@@ -48,7 +44,7 @@ const ExpenseList = ({ expenses, budget }: { expenses: Expense[]; budget: number
 
       <div className="grid grid-cols-2 gap-4">
         {expenses.map((expense, index) => (
-          <div key={index} className="bg-white p-4 rounded-lg border border-indigo-300 shadow-sm relative overflow-hidden h-36">
+          <div key={index} className="bg-white p-4 rounded-lg border border-indigo-300 shadow-sm relative overflow-hidden h-40">
             <p className="text-lg font-medium text-indigo-800 mb-4 h-full flex items-start break-words overflow-hidden w-[90%]">
               {expense.description}
             </p>
@@ -59,6 +55,7 @@ const ExpenseList = ({ expenses, budget }: { expenses: Expense[]; budget: number
 
             <div className="absolute bottom-3 left-4">
               <p className="text-sm text-gray-500">Date: {new Date(expense.date).toLocaleDateString()}</p>
+              <p className="text-sm text-gray-500">Category: {expense.category}</p>
             </div>
           </div>
         ))}
