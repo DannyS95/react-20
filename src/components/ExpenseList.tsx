@@ -21,8 +21,12 @@ const ExpenseList = ({ expenses, budget }: { expenses: Expense[]; budget: number
       {budget !== null && (
         <div className="mb-6 text-center">
           <p className="text-lg font-semibold text-gray-500">Balance:</p>
-          <span className="text-xl text-purple-600">
-            ${budget - totalExpenses > 0 ? (budget - totalExpenses).toFixed(2) : '0.00'}
+          <span
+            className={`text-xl ${totalExpenses > budget ? 'text-red-600' : 'text-purple-600'}`}
+          >
+            {totalExpenses > budget
+              ? `-€${(totalExpenses - budget).toFixed(2)}`
+              : `€${(budget - totalExpenses).toFixed(2)}`}
           </span>
           <div className="w-full bg-gray-200 rounded-full h-2 mb-2">
             <div
@@ -35,14 +39,14 @@ const ExpenseList = ({ expenses, budget }: { expenses: Expense[]; budget: number
 
       <div className="grid grid-cols-2 gap-4">
         {expenses.map((expense, index) => (
-          <div key={index} className="bg-white p-4 rounded-lg border border-indigo-300 shadow-sm relative overflow-hidden h-38">
-            <p className="text-lg font-medium text-indigo-800 mb-4 h-16 overflow-hidden">
+          <div key={index} className="bg-white p-4 rounded-lg border border-indigo-300 shadow-sm relative overflow-hidden h-56">
+            <p className="text-lg font-medium text-indigo-800 mb-4 h-full flex items-start break-words overflow-hidden w-[90%]">
               {expense.description}
             </p>
 
             {/* Top-right corner Amount Display */}
             <p className="absolute top-2 right-3 text-indigo-600 font-bold text-md p-1">
-              ${expense.amount.toFixed(2)}
+              €{expense.amount.toFixed(2)}
             </p>
 
             <div className="absolute bottom-3 left-4">
