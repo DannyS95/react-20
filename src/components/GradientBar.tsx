@@ -1,17 +1,28 @@
-
 import React, { useState, useRef } from 'react';
 
-const GradientBar = ({ colors, onColorAdd, onColorChange, onColorRemove, onDrag }) => {
-  const barRef = useRef(null);
+interface Color {
+  color: string;
+  position: number;
+}
 
-  const handleBarClick = (e) => {
+interface GradientBarProps {
+  colors: Color[];
+  onColorAdd: (position: number) => void;
+  onColorRemove: (index: number) => void;
+  onDrag: (index: number, position: number) => void;
+}
+
+const GradientBar = ({ colors, onColorAdd, onColorRemove, onDrag }: GradientBarProps) => {
+  const barRef = useRef<HTMLDivElement>(null);
+
+  const handleBarClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!barRef.current) return;
     const rect = barRef.current.getBoundingClientRect();
     const position = ((e.clientX - rect.left) / rect.width) * 100;
     onColorAdd(position);
   };
 
-  const handleDrag = (index, event) => {
+  const handleDrag = (index: number, event: React.DragEvent<HTMLDivElement>) => {
     if (!barRef.current) return;
     const rect = barRef.current.getBoundingClientRect();
     const newPosition = ((event.clientX - rect.left) / rect.width) * 100;

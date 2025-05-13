@@ -1,7 +1,18 @@
-
 import React from 'react';
 
-const GradientControls = ({ colors, angle, onColorChange, onAngleChange }) => {
+interface Color {
+  color: string;
+  position: number;
+}
+
+interface GradientControlsProps {
+  colors: Color[];
+  angle: number;
+  onColorChange: (index: number, color: Color) => void;
+  onAngleChange: (angle: number) => void;
+}
+
+const GradientControls = ({ colors, angle, onColorChange, onAngleChange }: GradientControlsProps) => {
   return (
     <div className="bg-white p-4 rounded-lg shadow-md w-full max-w-3xl space-y-4">
       <label className="block text-gray-700 font-semibold mb-2">Angle</label>
