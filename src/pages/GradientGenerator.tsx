@@ -77,6 +77,10 @@ const GradientGenerator = () => {
           setColors(newColors);
         }}
         onAngleChange={setAngle}
+        onColorRemove={(index) => {
+          const newColors = colors.filter((_, i) => i !== index);
+          setColors(newColors);
+        }}
       />
 
       {/* Add Color Button */}

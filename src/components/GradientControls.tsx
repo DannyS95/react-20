@@ -10,9 +10,10 @@ interface GradientControlsProps {
   angle: number;
   onColorChange: (index: number, color: Color) => void;
   onAngleChange: (angle: number) => void;
+  onColorRemove: (index: number) => void;
 }
 
-const GradientControls = ({ colors, angle, onColorChange, onAngleChange }: GradientControlsProps) => {
+const GradientControls = ({ colors, angle, onColorChange, onAngleChange, onColorRemove }: GradientControlsProps) => {
   return (
     <div className="bg-white p-4 rounded-lg shadow-md w-full max-w-3xl space-y-4">
       <label className="block text-gray-700 font-semibold mb-2">Angle</label>
@@ -43,6 +44,13 @@ const GradientControls = ({ colors, angle, onColorChange, onAngleChange }: Gradi
             }
             className="border p-2 rounded w-20"
           />
+          <button
+            onClick={() => onColorRemove(index)}
+            className="text-red-500 hover:text-red-700 p-2"
+            disabled={colors.length <= 2}
+          >
+            ✕
+          </button>
         </div>
       ))}
     </div>
