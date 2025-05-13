@@ -10,16 +10,6 @@ const GradientGenerator = () => {
   const [angle, setAngle] = useState(90);
   const [gradientType, setGradientType] = useState('linear');
 
-  const updateColor = (index: number, newColor: string) => {
-    const updatedColors = [...colors];
-    updatedColors[index].color = newColor;
-    setColors(updatedColors);
-  };
-
-  const updateAngle = (newAngle: number) => {
-    setAngle(newAngle);
-  };
-
   const addColor = () => {
     if (colors.length > 1) {
       // Evenly distribute the positions

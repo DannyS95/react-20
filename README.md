@@ -8,6 +8,7 @@ The Home page provides quick access to:
 - 🎲 [Roll a Dice (The Dash)](#roll-a-dice-the-dash-)
 - 🔴🟡 [Connect Four](#connect-four-)
 - 💰 [Expense Tracker](#expense-tracker-)
+- 🎨 [Gradient Generator](#gradient-generator-)
 
 ---
 
@@ -75,3 +76,24 @@ A budget and expense management app where users can set a budget, add expenses, 
 - 💸 Displays total expenses and remaining balance visually  
 
 ---
+
+## ✅ Gradient Generator 🎨
+**Summary**  
+An interactive gradient generator that allows users to create and customize linear or radial gradients. The generated CSS can be copied directly for use in any project.
+
+**Features**  
+- 🎨 Real-time gradient preview with live color adjustments  
+- 🔄 Supports linear and radial gradient types  
+- 🔢 Adjustable angle control for linear gradients  
+- ➕ Add and remove color stops dynamically  
+- 🗑️ Prevents removal of colors if only two remain  
+- ✏️ Editable color and position values  
+- 📋 One-click CSS copy with formatted code for easy integration  
+
+---
+
+## 🚀 Installation & Usage
+
+   ```sh
+    npm install
+    npm run dev
