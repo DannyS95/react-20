@@ -20,10 +20,10 @@ const ExpenseForm = ({ onAddExpense }: { onAddExpense: (expense: any) => void })
     }));
   };
 
-  const handleAmountChange = (value: string) => {
+  const handleAmountChange = (value: string | undefined) => {
     setFormData((prev) => ({
       ...prev,
-      amount: value, // Update the amount state
+      amount: value ?? '',
     }));
   };
 
