@@ -2,20 +2,28 @@
 import React, { useState } from 'react';
 import Flatpickr from 'react-flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
+import CurrencyInput from 'react-currency-input-field'; // Importing the CurrencyInput component
 
 const ExpenseForm = ({ onAddExpense }: { onAddExpense: (expense: any) => void }) => {
   const [formData, setFormData] = useState({
     description: '',
     amount: '',
     category: '',
-    date: new Date()
+    date: new Date(),
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
+    }));
+  };
+
+  const handleAmountChange = (value: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      amount: value, // Update the amount state
     }));
   };
 
@@ -24,9 +32,12 @@ const ExpenseForm = ({ onAddExpense }: { onAddExpense: (expense: any) => void })
     const { description, amount, category, date } = formData;
     if (!description || !amount || !category) return;
 
+    // Convert the formatted amount to a numeric value
+    const numericAmount = parseFloat(amount.replace(/[^\d.-]/g, ''));
+
     const expense = {
       description,
-      amount: parseFloat(amount),
+      amount: numericAmount,
       category,
       date,
     };
@@ -38,16 +49,13 @@ const ExpenseForm = ({ onAddExpense }: { onAddExpense: (expense: any) => void })
       description: '',
       amount: '',
       category: '',
-      date: new Date()
+      date: new Date(),
     });
   };
 
   return (
     <div className="flex justify-center pt-10 w-full">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-lg shadow-md space-y-6 w-full max-w-lg"
-      >
+      <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-md space-y-6 w-full max-w-lg">
         <div>
           <label className="block text-gray-700 font-semibold mb-2">Description</label>
           <textarea
@@ -61,12 +69,15 @@ const ExpenseForm = ({ onAddExpense }: { onAddExpense: (expense: any) => void })
 
         <div>
           <label className="block text-gray-700 font-semibold mb-2">Amount</label>
-          <input
+          <CurrencyInput
             name="amount"
-            type="number"
-            placeholder="Amount"
             value={formData.amount}
-            onChange={handleChange}
+            onValueChange={handleAmountChange}
+            prefix="€"
+            decimalsLimit={2}
+            groupSeparator=","
+            decimalSeparator="."
+            placeholder="€0.00"
             className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
@@ -88,7 +99,7 @@ const ExpenseForm = ({ onAddExpense }: { onAddExpense: (expense: any) => void })
           <Flatpickr
             className="w-full border border-gray-300 p-3 rounded"
             value={formData.date}
-            options={{ dateFormat: "Y-m-d" }}
+            options={{ dateFormat: 'Y-m-d' }}
             onChange={(date) => setFormData((prev) => ({ ...prev, date: date[0] }))}
           />
         </div>

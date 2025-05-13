@@ -11,6 +11,13 @@ type Expense = {
 const ExpenseList = ({ expenses, budget }: { expenses: Expense[]; budget: number | null }) => {
   const totalExpenses = expenses.reduce((sum, expense) => sum + expense.amount, 0);
 
+  // Currency Formatter
+  const formatCurrency = (amount: number) =>
+    new Intl.NumberFormat('de-DE', {
+      style: 'currency',
+      currency: 'EUR',
+    }).format(amount);
+
   return (
     <div className="bg-gradient-to-br from-purple-100 to-indigo-200 p-6 rounded-lg shadow-md mt-5 w-full max-w-4xl overflow-auto">
       <h2 className="text-xl font-semibold mb-4 text-center bg-gradient-to-r from-purple-500 to-indigo-600 text-transparent bg-clip-text">
@@ -25,13 +32,15 @@ const ExpenseList = ({ expenses, budget }: { expenses: Expense[]; budget: number
             className={`text-xl ${totalExpenses > budget ? 'text-red-600' : 'text-purple-600'}`}
           >
             {totalExpenses > budget
-              ? `-€${(totalExpenses - budget).toFixed(2)}`
-              : `€${(budget - totalExpenses).toFixed(2)}`}
+              ? `- ${formatCurrency(totalExpenses - budget)}`
+              : `${formatCurrency(budget - totalExpenses)}`}
           </span>
           <div className="w-full bg-gray-200 rounded-full h-2 mb-2">
             <div
               className={`h-2 rounded-full ${totalExpenses > budget ? 'bg-red-600' : 'bg-green-500'}`}
-              style={{ width: `${Math.min((totalExpenses / budget) * 100, 100)}%` }}
+              style={{
+                width: `${Math.min((totalExpenses / budget) * 100, 100) || 1}%`,
+              }}
             ></div>
           </div>
         </div>
@@ -39,14 +48,13 @@ const ExpenseList = ({ expenses, budget }: { expenses: Expense[]; budget: number
 
       <div className="grid grid-cols-2 gap-4">
         {expenses.map((expense, index) => (
-          <div key={index} className="bg-white p-4 rounded-lg border border-indigo-300 shadow-sm relative overflow-hidden h-56">
+          <div key={index} className="bg-white p-4 rounded-lg border border-indigo-300 shadow-sm relative overflow-hidden h-36">
             <p className="text-lg font-medium text-indigo-800 mb-4 h-full flex items-start break-words overflow-hidden w-[90%]">
               {expense.description}
             </p>
 
-            {/* Top-right corner Amount Display */}
             <p className="absolute top-2 right-3 text-indigo-600 font-bold text-md p-1">
-              €{expense.amount.toFixed(2)}
+              {formatCurrency(expense.amount)}
             </p>
 
             <div className="absolute bottom-3 left-4">
