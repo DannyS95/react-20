@@ -13,17 +13,15 @@ interface Expense {
 }
 
 const ExpenseTracker = () => {
-  // Main State
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [budget, setBudget] = useState<number | null>(null);
+  const [viewMode, setViewMode] = useState<'budget' | 'expenses'>('expenses');
 
-  // Filter States
   const [dateFilter, setDateFilter] = useState<string>('');
   const [categoryFilter, setCategoryFilter] = useState<string>('');
   const [amountFilter, setAmountFilter] = useState<string>('');
   const [descriptionFilter, setDescriptionFilter] = useState<string>('');
 
-  // Handlers
   const handleAddExpense = (expense: Expense) => {
     if (!expense.id) {
       expense.id = uuidv4();
@@ -33,6 +31,7 @@ const ExpenseTracker = () => {
 
   const handleSetBudget = (newBudget: number) => {
     setBudget(newBudget);
+    setViewMode('expenses');
   };
 
   const handleRemoveExpense = (id: string) => {
@@ -54,11 +53,35 @@ const ExpenseTracker = () => {
     );
   });
 
+  const totalExpenses = expenses.reduce((sum, expense) => sum + expense.amount, 0);
+  const remaining = budget !== null ? budget - totalExpenses : 0;
+
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center pt-10">
-      {expenses.length === 0 && budget === null ? (
-        <BudgetForm onSetBudget={handleSetBudget} />
-      ) : (
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center pt-10 space-y-6">
+      {viewMode === 'expenses' && (
+        <div className="w-full max-w-2xl p-8 rounded-lg shadow-md bg-gradient-to-r from-green-100 to-blue-100 flex justify-between items-center space-x-2">
+          <div className="text-2xl font-semibold flex flex-col items-center">
+            <span className={remaining < 0 ? "text-red-500" : "text-green-500"}>Total Budget</span>
+            <span className="text-xl font-bold text-gray-600 tracking-tight leading-snug">
+              {budget !== null ? `€${budget.toFixed(2)}` : "Not Set"}
+            </span>
+          </div>
+          <div className="text-2xl font-semibold text-gray-700 flex flex-col items-center">
+            <span className="text-red-500">Total Spent</span>
+            <span className="text-xl font-bold text-gray-600 tracking-tight leading-snug">
+              €{totalExpenses.toFixed(2)}
+            </span>
+          </div>
+          <button
+            onClick={() => setViewMode('budget')}
+            className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-4 py-2 rounded-lg hover:from-blue-600 hover:to-indigo-600 transition"
+          >
+            ✎ Edit Budget
+          </button>
+        </div>
+      )}
+
+      {viewMode === 'expenses' ? (
         <>
           <div className="w-full max-w-4xl mb-8">
             <ExpenseForm onAddExpense={handleAddExpense} />
@@ -97,14 +120,20 @@ const ExpenseTracker = () => {
                 />
               </div>
 
-              <ExpenseList
-                expenses={filteredExpenses}
-                budget={budget}
-                removeExpense={handleRemoveExpense}
-              />
+              <div className="w-full max-w-3xl flex flex-col items-center mb-4 space-y-4 pb-10">
+                <ExpenseList
+                  expenses={filteredExpenses}
+                  budget={budget}
+                  removeExpense={handleRemoveExpense}
+                />
+              </div>
             </div>
           )}
         </>
+      ) : (
+        <div className="w-full max-w-md mb-5">
+          <BudgetForm onSetBudget={handleSetBudget} />
+        </div>
       )}
     </div>
   );

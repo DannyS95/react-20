@@ -47,6 +47,14 @@ const Home = () => {
           >
             🎨 Gradient Generator
           </Link>
+
+          <Link
+            to="/hangman"
+            className="block px-6 py-2 text-white rounded transition bg-gradient-to-r from-black via-gray-800 to-black hover:from-gray-900 hover:via-gray-700 hover:to-gray-900"
+          >
+            🎯 Hangman
+          </Link>
+
         </div>
       </div>
     </div>

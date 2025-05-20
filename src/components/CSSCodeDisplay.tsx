@@ -1,7 +1,10 @@
-
 import React from 'react';
 
-const CSSCodeDisplay = ({ cssCode }) => {
+interface CSSCodeDisplayProps {
+  cssCode: string;
+}
+
+const CSSCodeDisplay = ({ cssCode }: CSSCodeDisplayProps) => {
   const copyToClipboard = () => {
     navigator.clipboard.writeText(cssCode);
   };

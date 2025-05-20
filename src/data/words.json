@@ -1,0 +1,22 @@
+{
+  "animals": [
+    "cat", "dog", "lion", "tiger", "bear", "zebra", "giraffe", "monkey", "elephant", "panda",
+    "rabbit", "fox", "koala", "wolf", "horse"
+  ],
+  "fruits": [
+    "apple", "banana", "grape", "lemon", "mango", "peach", "pear", "plum", "cherry", "orange",
+    "kiwi", "melon", "fig", "lime", "papaya"
+  ],
+  "colors": [
+    "red", "blue", "green", "yellow", "purple", "orange", "black", "white", "pink", "brown",
+    "gray", "beige", "teal", "navy", "maroon"
+  ],
+  "verbs": [
+    "run", "jump", "walk", "sleep", "drive", "fly", "read", "write", "cook", "swim",
+    "climb", "laugh", "cry", "paint", "draw"
+  ],
+  "countries": [
+    "spain", "france", "brazil", "canada", "china", "egypt", "greece", "india", "italy", "japan",
+    "mexico", "norway", "peru", "sweden", "turkey"
+  ]
+}
