@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 type Expense = {
@@ -6,10 +5,18 @@ type Expense = {
   description: string;
   amount: number;
   date: Date;
-  category: string; // Added category here
+  category: string;
 };
 
-const ExpenseList = ({ expenses, budget }: { expenses: Expense[]; budget: number | null }) => {
+const ExpenseList = ({
+  expenses,
+  budget,
+  removeExpense,
+}: {
+  expenses: Expense[];
+  budget: number | null;
+  removeExpense: (id: string) => void;
+}) => {
   const totalExpenses = expenses.reduce((sum, expense) => sum + expense.amount, 0);
 
   // Currency Formatter
@@ -43,8 +50,11 @@ const ExpenseList = ({ expenses, budget }: { expenses: Expense[]; budget: number
       )}
 
       <div className="grid grid-cols-2 gap-4">
-        {expenses.map((expense, index) => (
-          <div key={index} className="bg-white p-4 rounded-lg border border-indigo-300 shadow-sm relative overflow-hidden h-40">
+        {expenses.map((expense) => (
+          <div
+            key={expense.id}
+            className="bg-white p-4 rounded-lg border border-indigo-300 shadow-sm relative overflow-hidden h-40"
+          >
             <p className="text-lg font-medium text-indigo-800 mb-4 h-full flex items-start break-words overflow-hidden w-[90%]">
               {expense.description}
             </p>
@@ -57,6 +67,13 @@ const ExpenseList = ({ expenses, budget }: { expenses: Expense[]; budget: number
               <p className="text-sm text-gray-500">Date: {new Date(expense.date).toLocaleDateString()}</p>
               <p className="text-sm text-gray-500">Category: {expense.category}</p>
             </div>
+
+            <button
+              onClick={() => removeExpense(expense.id)}
+              className="absolute bottom-3 right-3 text-red-500 hover:text-red-700 p-1"
+            >
+              ✕
+            </button>
           </div>
         ))}
       </div>
