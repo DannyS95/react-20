@@ -38,7 +38,7 @@ const Hangman = () => {
   return (
     <div className="min-h-screen bg-slate-100 flex flex-col items-center justify-center space-y-6">
       <h1 className="text-3xl font-bold text-gray-800">🎯 Hangman</h1>
-      <HangmanDrawing />
+      <HangmanDrawing incorrectGuesses={incorrectLetters.length} />
       <HangmanWord
         wordToGuess={wordToGuess}
         guessedLetters={guessedLetters}
