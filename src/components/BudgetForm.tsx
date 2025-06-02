@@ -1,6 +1,7 @@
 // src/components/BudgetForm.tsx
 import React, { useState } from 'react';
 import CurrencyInput from 'react-currency-input-field';
+import { EURO } from '../utils/constants';
 
 const BudgetForm = ({ onSetBudget }: { onSetBudget: (budget: number) => void }) => {
   const [budget, setBudget] = useState<string>('');
@@ -14,7 +15,7 @@ const BudgetForm = ({ onSetBudget }: { onSetBudget: (budget: number) => void }) 
     if (!budget) return;
 
     // Remove currency symbol and parse as float
-    const numericBudget = parseFloat(budget.replace('€', '').replace(',', '.').trim());
+    const numericBudget = parseFloat(budget.replace(EURO, '').replace(',', '.').trim());
     onSetBudget(numericBudget);
   };
 
@@ -24,7 +25,7 @@ const BudgetForm = ({ onSetBudget }: { onSetBudget: (budget: number) => void }) 
       
       {/* Custom Currency Input with Euro symbol */}
       <div className="flex items-center space-x-2">
-        <span className="text-xl font-semibold text-gray-700">€</span>
+        <span className="text-xl font-semibold text-gray-700">{EURO}</span>
         <CurrencyInput
           className="w-full border border-gray-300 p-3 rounded"
           value={budget}

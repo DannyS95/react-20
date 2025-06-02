@@ -1,6 +1,7 @@
 import React from 'react';
 import ExpenseForm from './ExpenseForm';
 import ExpenseList from './ExpenseList';
+import { EURO } from '../utils/constants';
 
 interface Expense {
   id: string;
@@ -66,13 +67,13 @@ const ExpenseView = ({
         <div className="text-2xl font-semibold flex flex-col items-center">
           <span className={remaining < 0 ? "text-red-500" : "text-green-500"}>Total Budget</span>
           <span className="text-xl font-bold text-gray-600 tracking-tight leading-snug">
-            {budget !== null ? `€${budget.toFixed(2)}` : "Not Set"}
+            {budget !== null ? `${EURO}${budget.toFixed(2)}` : "Not Set"}
           </span>
         </div>
         <div className="text-2xl font-semibold text-gray-700 flex flex-col items-center">
           <span className="text-red-500">Total Spent</span>
           <span className="text-xl font-bold text-gray-600 tracking-tight leading-snug">
-            €{totalExpenses.toFixed(2)}
+            {EURO}{totalExpenses.toFixed(2)}
           </span>
         </div>
         <button

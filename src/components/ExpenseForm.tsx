@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Flatpickr from 'react-flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 import CurrencyInput from 'react-currency-input-field'; // Importing the CurrencyInput component
+import { EURO } from '../utils/constants';
 
 const ExpenseForm = ({ onAddExpense }: { onAddExpense: (expense: any) => void }) => {
   const [formData, setFormData] = useState({
@@ -73,11 +74,11 @@ const ExpenseForm = ({ onAddExpense }: { onAddExpense: (expense: any) => void })
             name="amount"
             value={formData.amount}
             onValueChange={handleAmountChange}
-            prefix="€"
+            prefix={EURO}
             decimalsLimit={2}
             groupSeparator=","
             decimalSeparator="."
-            placeholder="€0.00"
+            placeholder={`${EURO}0.00`}
             className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
